@@ -19,10 +19,12 @@ public class Treasure_box extends Item {
         Random r=new Random();
         int num=r.nextInt(10);
         if(num==0) {
-            //获得宠物 比例 初级：中级：高级：究极：坤坤=50:30:15：4：1
+            //获得宠物 比例 初级：中级：高级：究极：坤坤or刀酱=50:30:15：4：1
             int rate=Tools.getRandomNum(100);
             if(rate==0){
+                if(r.nextInt(10)>5){
                 return new Cai_Xukun_The_Answer();
+                }else return new KnifeJANG();
             } else if (rate<=4) {
                 return new Pikachu();
             } else if (rate<=20) {
