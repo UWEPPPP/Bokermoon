@@ -5,6 +5,6 @@ public class KnifeJANG extends Pokemon{
         super("刀酱");
         this.HP=6666;
         this.attack=45;
-        this.defense=88;
+        this.defense=888;
     }
 }
