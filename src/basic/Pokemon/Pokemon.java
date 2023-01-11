@@ -24,6 +24,11 @@ public class Pokemon extends Item {
     }
     protected   int attack;
     protected   int defense;
+
+    public void setHP(int HP) {
+        this.HP = HP;
+    }
+
     protected int HP;
     private int star=1;
     private Equipment[] equipment=new Equipment[8];
