@@ -2,37 +2,40 @@ package basic.Pokemon;
 import basic.Equipment.*;
 import basic.Item;
 public class Pokemon extends Item {
+
+    protected   int attack;
+    protected   int defense;
+    protected int HP;
+    protected int currentHP;
+    private int star=1;
+    public int getCurrentHP() {
+        return currentHP;
+    }
+    public void setCurrentHP(int currentHP) {
+        this.currentHP = currentHP;
+    }
+    private Equipment[] equipment=new Equipment[8];
     public int getAttack() {
         int total=attack;
         for (Equipment equipment1: equipment) {
             if(equipment1!=null)total+=equipment1.getAttack();
         } return total;
     }
-
     public int getDefense() {
         int total=defense;
         for (Equipment equipment1: equipment) {
             if(equipment1!=null)total+=equipment1.getDefense();
         } return total;
     }
-
     public int getHP() {
         int total=HP;
         for (Equipment equipment1: equipment) {
             if(equipment1!=null)total+=equipment1.getHP();
         } return total;
     }
-    protected   int attack;
-    protected   int defense;
-
     public void setHP(int HP) {
         this.HP = HP;
     }
-
-    protected int HP;
-    private int star=1;
-    private Equipment[] equipment=new Equipment[8];
-
     public Pokemon(String name) {
         super(name);
     }
