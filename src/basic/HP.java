@@ -1,12 +1,6 @@
 package basic;
 
 public class HP extends Item{
-    public int getCount() {
-        return count;
-    }
-    public void addCount(int count){
-        this.count+=count;
-    }
 
     private int count;
 

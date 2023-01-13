@@ -13,23 +13,14 @@ public class Monster extends Item {
         return attack;
     }
 
-    public int getHP() {
-        return HP;
-    }
-
     public Monster(String name, int levelNum) {
-        super(name,levelNum);this.currentHP=HP;
+        super(name,levelNum);
     }
     @Override
     public String getItemInformation() {
         return name+": 攻击力="+getAttack()+"防御力="+getDefense()+"HP="+getCurrentHP();
     }
 
-    public float HPbili(){
-        float HP1=currentHP;
-        float HP2=HP;
-        return HP1/HP2;
-    }
     public int getCurrentHP() {
         return currentHP;
     }

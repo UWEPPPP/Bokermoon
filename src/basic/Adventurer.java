@@ -10,13 +10,13 @@ import java.util.Arrays;
 
 public class Adventurer extends Item{
     private Equipment[] equipment={};
-    private final HP[] hps={new HP(1,10)};
+    private  HP[] hps=new HP[3];
     private Pokemon[] pokemons={new The_seed_of_the_wonderful_frog()};
     private Level currentLevel;
     public Adventurer() {
         super("冒险家");
     }
-    public void start() throws IOException, InterruptedException {
+    public void start() throws InterruptedException {
         currentLevel = new Level(null, 1, null);
         LevelMap map = currentLevel.getMap();
         //冒险家进入地图
@@ -82,7 +82,7 @@ public class Adventurer extends Item{
                         System.out.println(pokemon.getName() + "生命值低于50%， 是否使用药品？ Y/N");
                         char eatHp = Tools.getInputChar();
                         if (Character.toUpperCase(eatHp) == 'Y') {
-                            HP hp = getCurrentLevelHP(currentLevel.getNum());
+                            HP hp = getCurrentLevelHP();
                             if (hp == null) {
                                 System.out.println("背包中没有可用药品，请探索其他地 图");
                             } else { //如果药品可以被销毁，说明没有可用数量
@@ -129,7 +129,7 @@ public class Adventurer extends Item{
                 }
             }
         }
-        private HP getCurrentLevelHP ( int levelNumber){
+        private HP getCurrentLevelHP (){
             for (int i=0;i<hps.length;i++){
                 if(hps[i]!=null){
                     HP hp=hps[i];
@@ -189,7 +189,7 @@ public class Adventurer extends Item{
                 }
             }
         }
-        private void processTreasure (Treasure_box treasure,char direct) throws IOException, InterruptedException {
+        private void processTreasure (Treasure_box treasure,char direct) throws InterruptedException {
             System.out.println("发现宝箱，是否打开？ Y/N");
             char open = Tools.getInputChar();
             if (Character.toUpperCase(open) == 'Y') {

@@ -34,10 +34,10 @@ public class LevelMap {
             int row = index / item[0].length;
             int col = index % item[0].length;
             //目标位置已经有物品存在
-            if(item[row][col] != null) continue;
+            if(item[row][col]!= null) continue;
             //获取一个随机数
              int rate = Tools.getRandomNum(79);
-             if(rate == 0){//传送门
+             if(rate == 0){// 传送门
                  // 传送门已经生成了，直接跳过
                  if(generatedPortal == 1) continue;
                  item[row][col] = new Portal(true); generatedPortal += 1;
@@ -46,14 +46,14 @@ public class LevelMap {
                  if(generatedTreasure == 39) continue;
                  item[row][col] = new Treasure_box(num);
                  generatedTreasure++; } else {//怪物 初级：中级：高级：究级 = 18:12:6:3
-                  int num = Tools.getRandomNum(39);
-                  if(num < 3){//究级怪物
+                  int num1 = Tools.getRandomNum(39);
+                  if(num1 < 3){//究级怪物
                       // 究级怪物已经全部生成完毕，直接跳过
                       if(generatedMonster4 == 3) continue; item[row][col] = new Phoenix(num); generatedMonster4 += 1;
-                  } else if(num < 9){//高级怪物
+                  } else if(num1 < 9){//高级怪物
                       // 高级怪物已经全部生成完毕，直接跳过
                       if(generatedMonster3 == 6) continue; item[row][col] = new Ghoul(num); generatedMonster3 += 1;
-                  } else if(num < 21){//中级怪物
+                  } else if(num1 < 21){//中级怪物
                       // 中级怪物已经全部生成完毕，直接跳过
                       if(generatedMonster2 == 12) continue; item[row][col] = new Minotaur(num); generatedMonster2 += 1;
                   } else {//初级怪物

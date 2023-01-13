@@ -34,15 +34,9 @@ public class Pokemon extends Item {
             if(equipment1!=null)total+=equipment1.getDefense();
         } return total;
     }
-    public int getHP() {
-        int total=HP;
-        for (Equipment equipment1: equipment) {
-            if(equipment1!=null)total+=equipment1.getHP();
-        } return total;
-    }
 
     public Pokemon(String name) {
-        super(name);this.currentHP=HP;
+        super(name);
     }
 
     @Override
