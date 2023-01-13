@@ -10,4 +10,9 @@ public class Phoenix extends Monster{
         this.HP=Tools.getRandomNum(1800,2200,levelNum);
         this.currentHP=this.HP;
     }
+
+    @Override
+    public String getInformation() {
+        return discovery ? "D" : "■";
+    }
 }

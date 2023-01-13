@@ -1,12 +1,7 @@
 package basic.Monster;
-
-import basic.Equipment.*;
-import basic.HP;
 import basic.Item;
 import basic.Pokemon.*;
 import basic.Tools;
-
-import java.util.Random;
 
 public class Monster extends Item {
     protected int attack;
@@ -14,10 +9,27 @@ public class Monster extends Item {
     protected int HP;
     protected int currentHP;
 
-    public Monster(String name,int levelNum) {
-        super(name,levelNum);
+    public int getAttack() {
+        return attack;
     }
 
+    public int getHP() {
+        return HP;
+    }
+
+    public Monster(String name, int levelNum) {
+        super(name,levelNum);this.currentHP=HP;
+    }
+    @Override
+    public String getItemInformation() {
+        return name+": 攻击力="+getAttack()+"防御力="+getDefense()+"HP="+getCurrentHP();
+    }
+
+    public float HPbili(){
+        float HP1=currentHP;
+        float HP2=HP;
+        return HP1/HP2;
+    }
     public int getCurrentHP() {
         return currentHP;
     }
@@ -26,38 +38,23 @@ public class Monster extends Item {
         this.currentHP = currentHP;
     }
 
-    public int getAttack() {
-        return attack;
-    }
-
-    public void setAttack(int attack) {
-        this.attack = attack;
-    }
-
     public int getDefense() {
         return defense;
     }
 
-    public void setDefense(int defense) {
-        this.defense = defense;
+    public void resume(){
+        currentHP = HP;
     }
-
-    public int getHP() {
-        return HP;
-    }
-
-    public void setHP(int HP) {
-        this.HP = HP;
-    }
-
     public void attackPokemon(Pokemon pokemon){
-        int reduce=this.attack*this.attack/pokemon.getDefense();
-        if(reduce==0){
-            reduce=1;
-        }
-        pokemon.setHP(pokemon.getHP()-reduce);
-        System.out.println(name+"对"+pokemon.getName()+"发动攻击，造成了"+reduce+"伤害");
-    }
+        int minusHealth = this.attack * this.attack / pokemon.getDefense();
+        if(minusHealth == 0) {//伤害为0，需要调整
+             minusHealth = 1; //调整伤害为1点
+             } else if(minusHealth > pokemon.getCurrentHP()){//如果伤害比宠物 小精灵当前血量还要高
+             minusHealth = pokemon.getCurrentHP(); //伤害就应该等于宠物小精 灵当前血量
+             }//剩余血量
+         int restHealth = pokemon.getCurrentHP() - minusHealth;
+        pokemon.setCurrentHP(restHealth);
+        System.err.println(name + "对" + pokemon.getName() + "发动攻击，造成 了" + minusHealth + "伤害"); }
     @Override
     public String getInformation() {
         return discovery?name:"■";

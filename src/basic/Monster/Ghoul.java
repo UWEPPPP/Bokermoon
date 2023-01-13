@@ -10,4 +10,9 @@ public class Ghoul extends Monster{
         this.HP=Tools.getRandomNum(900,1100,levelNum);
         this.currentHP=this.HP;
     }
+
+    @Override
+    public String getInformation() {
+        return discovery ? "C" : "■";
+    }
 }

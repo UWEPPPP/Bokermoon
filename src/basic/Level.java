@@ -1,13 +1,13 @@
 package basic;
 
 public class Level {
-    private int num;
-    private Level prevLevel;
+    private final int num;
+    private final Level prevLevel;
     private Level nextLevel;
-    private LevelMap map;
+    private final LevelMap map;
 
 
-    public Level(int num, Level prevLevel, Level nextLevel) {
+    public Level(Level prevLevel, int num,Level nextLevel) {
         this.num = num;
         this.prevLevel = prevLevel;
         this.nextLevel = nextLevel;
@@ -18,16 +18,8 @@ public class Level {
         return num;
     }
 
-    public void setNum(int num) {
-        this.num = num;
-    }
-
     public Level getPrevLevel() {
         return prevLevel;
-    }
-
-    public void setPrevLevel(Level prevLevel) {
-        this.prevLevel = prevLevel;
     }
 
     public Level getNextLevel() {
@@ -42,7 +34,4 @@ public class Level {
         return map;
     }
 
-    public void setMap(LevelMap map) {
-        this.map = map;
-    }
 }

@@ -10,4 +10,9 @@ public class Porcupine extends Monster{
         this.HP=Tools.getRandomNum(600,800,levelNum);
         this.currentHP=this.HP;
     }
+
+    @Override
+    public String getInformation() {
+        return discovery ? "A" : "■";
+    }
 }

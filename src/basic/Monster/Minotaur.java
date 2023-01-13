@@ -10,4 +10,9 @@ public class Minotaur extends Monster{
         this.HP=Tools.getRandomNum(700,900,levelNum);
         this.currentHP=this.HP;
     }
+
+    @Override
+    public String getInformation() {
+        return discovery ? "B" : "■";
+    }
 }

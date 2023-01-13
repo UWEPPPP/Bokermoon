@@ -1,21 +1,38 @@
 package basic;
 
+
 import basic.Equipment.*;
 import basic.Pokemon.*;
 
+import java.io.IOException;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Tools {
     private static  final Random r=new Random();
+
     public static int getRandomNum(int min,int max,int levelNum){
       int diff=(max-min)*levelNum;
+      if(diff>0){
       return r.nextInt(diff)+min*levelNum;
+    }else {
+          return 1;
+      }
     }
     public static int getRandomNum(int min,int max){
         return getRandomNum(min,max,1);
     }
     public static int getRandomNum(int max){
         return  getRandomNum(0,max);
+    }
+
+    public static char getInputChar() {
+
+        return in.next().charAt(0);
+    }
+    static final Scanner in =new Scanner(System.in);
+    public static int getInputNumber() {
+        return in.nextInt();
     }
     public static Item getRandomItem(int levelNum){
         Random r=new Random();

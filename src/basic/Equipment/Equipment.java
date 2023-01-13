@@ -12,24 +12,12 @@ public abstract class Equipment extends Item {
         return attack;
     }
 
-    public void setAttack(int attack) {
-        this.attack = attack;
-    }
-
     public int getDefense() {
         return defense;
     }
 
-    public void setDefense(int defense) {
-        this.defense = defense;
-    }
-
     public int getHP() {
         return HP;
-    }
-
-    public void setHP(int HP) {
-        this.HP = HP;
     }
 
     protected int HP;//生命值
@@ -39,6 +27,11 @@ public abstract class Equipment extends Item {
 
     @Override
     public String getInformation() {
+        return "🔪";
+    }
+
+    @Override
+    public String getItemInformation() {
         return toString();
     }
 
