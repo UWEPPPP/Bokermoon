@@ -1,5 +1,7 @@
 package basic;
 
+import java.sql.SQLException;
+
 public class Treasure_box extends Item {
     public Treasure_box(int levelNum) {
         super("宝箱", levelNum);
@@ -8,5 +10,5 @@ public class Treasure_box extends Item {
     public String getInformation() {
         return discovery ? "⭐" : "■";
     }
-    public Item open(){ return Tools.getRandomItem(levelNum); }
+    public Item open() throws SQLException, ClassNotFoundException { return Tools.getRandomItem(levelNum); }
 }

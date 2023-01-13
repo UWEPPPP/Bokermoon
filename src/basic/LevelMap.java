@@ -110,21 +110,25 @@ public class LevelMap {
                currentCol = 1;
            }item[currentRow][currentCol] = adventurer;
        }
-    public Item_rule getPositionItem(char direct){ int targetRow = currentRow, targetCol = currentCol;
+    public Item_rule getPositionItem(char direct) throws InterruptedException { int targetRow = currentRow, targetCol = currentCol;
         switch (direct) {
             case 'W' -> {
+                Thread.sleep(300);
                 if (targetRow == 0) return null;
                 targetRow -= 1;
             }
             case 'A' -> {
+                Thread.sleep(300);
                 if (targetCol == 0) return null;
                 targetCol -= 1;
             }
             case 'S' -> {
+                Thread.sleep(300);
                 if (targetRow == item.length - 1) return null;
                 targetRow += 1;
             }
             case 'D' -> {
+                Thread.sleep(300);
                 if (targetCol == item[currentRow].length - 1) return null;
                 targetCol += 1;
             }

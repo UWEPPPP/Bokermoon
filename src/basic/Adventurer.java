@@ -1,11 +1,10 @@
 package basic;
 
-import basic.Equipment.Equipment;
 import basic.Monster.Monster;
 import basic.Pokemon.Pokemon;
 import basic.Pokemon.The_seed_of_the_wonderful_frog;
 
-import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Arrays;
 
 public class Adventurer extends Item{
@@ -16,7 +15,7 @@ public class Adventurer extends Item{
     public Adventurer() {
         super("冒险家");
     }
-    public void start() throws InterruptedException {
+    public void start() throws InterruptedException, SQLException, ClassNotFoundException {
         currentLevel = new Level(null, 1, null);
         LevelMap map = currentLevel.getMap();
         //冒险家进入地图
@@ -189,7 +188,7 @@ public class Adventurer extends Item{
                 }
             }
         }
-        private void processTreasure (Treasure_box treasure,char direct) throws InterruptedException {
+        private void processTreasure (Treasure_box treasure,char direct) throws InterruptedException, SQLException, ClassNotFoundException {
             System.out.println("发现宝箱，是否打开？ Y/N");
             char open = Tools.getInputChar();
             if (Character.toUpperCase(open) == 'Y') {

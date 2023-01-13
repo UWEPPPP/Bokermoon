@@ -5,8 +5,11 @@ import basic.Equipment.*;
 import basic.Pokemon.*;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Random;
 import java.util.Scanner;
+
+import static basic.Use_Mysql.equip_sql;
 
 public class Tools {
     private static  final Random r=new Random();
@@ -34,7 +37,7 @@ public class Tools {
     public static int getInputNumber() {
         return in.nextInt();
     }
-    public static Item getRandomItem(int levelNum){
+    public static Item getRandomItem(int levelNum) throws SQLException, ClassNotFoundException {
         Random r=new Random();
         int num=r.nextInt(10);
         if(num==0) {
@@ -55,20 +58,20 @@ public class Tools {
             //装备 比例 武器：铠甲：护腿：鞋子：头盔：项链：手镯：戒指=20：15：15：15：15：10：5：5
             int rate=Tools.getRandomNum(100);
             if(rate<5){
-                return new Ring(levelNum);
+                return equip_sql(4,levelNum);
             } else if (rate<10) {
-                return new Bracelet(levelNum);
+                return equip_sql(7,levelNum);
             } else if (rate<20) {
-                return new Necklace(levelNum);
+                return equip_sql(6,levelNum);
             } else if (rate<35) {
-                return new Helmet(levelNum);
+                return equip_sql(1,levelNum);
             } else if (rate<50) {
-                return new Boot(levelNum);
+                return equip_sql(3,levelNum);
             } else if (rate<65) {
-                return new Gaiter(levelNum);
+                return equip_sql(5,levelNum);
             } else if (rate<80) {
-                return new Armor(levelNum);
-            }else return new Weapon(levelNum);
+                return equip_sql(2,levelNum);
+            }else return equip_sql(8,levelNum);
         }else {
             //药品
             return new HP(levelNum,10);

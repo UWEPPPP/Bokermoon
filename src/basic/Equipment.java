@@ -1,10 +1,8 @@
-package basic.Equipment;
-
-import basic.Item;
+package basic;
 
 import java.util.Objects;
 
-public abstract class Equipment extends Item {
+public  class Equipment extends Item {
     protected int attack;//攻击力
     protected int defense;//防御力
 
@@ -21,8 +19,11 @@ public abstract class Equipment extends Item {
     }
 
     protected int HP;//生命值
-    public Equipment(String name, int levelNum) {
+    public Equipment(String name, int levelNum,int...message) {
         super(name, levelNum);
+        this.attack=Tools.getRandomNum(message[0],message[1],levelNum);
+        this.defense=Tools.getRandomNum(message[2],message[3],levelNum);
+        this.HP=Tools.getRandomNum(message[4],message[5],levelNum);
     }
 
     @Override

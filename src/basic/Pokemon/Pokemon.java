@@ -1,7 +1,9 @@
 package basic.Pokemon;
-import basic.Equipment.*;
+import basic.Equipment;
 import basic.Item;
 import basic.Monster.Monster;
+
+import java.util.Objects;
 
 public class Pokemon extends Item {
 
@@ -59,21 +61,17 @@ public class Pokemon extends Item {
     }
     public Equipment replaceEquipment(Equipment newEquipment){
         int index;
-        if(newEquipment instanceof Helmet){
-            index=0;
-        }else if(newEquipment instanceof Armor){
-            index=1;
-        }else if(newEquipment instanceof Gaiter){
-            index=2;
-        } else if (newEquipment instanceof Boot) {
-            index=3;
-        } else if (newEquipment instanceof Weapon) {
-            index=4;
-        } else if (newEquipment instanceof  Necklace) {
-            index=5;
-        } else if (newEquipment instanceof  Ring) {
-            index=6;
-        }else index=7;
+        switch (newEquipment.getName()) {
+            case "头盔" -> index = 0;
+            case "靴子" -> index = 1;
+            case "武器" -> index = 2;
+            case "手镯" -> index = 3;
+            case "项链" -> index = 4;
+            case "戒指" -> index = 5;
+            case "护腿" -> index = 6;
+            case "铠甲" -> index = 7;
+            default -> throw new IllegalStateException("Unexpected value: " + newEquipment.getName());
+        }
         Equipment old=equipment[index];
         if(old==null||old.compareBetter(newEquipment)){//未穿戴装备与新装备好的情况
             equipment[index]=newEquipment;

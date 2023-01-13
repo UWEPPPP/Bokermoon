@@ -4,9 +4,9 @@ public class Pikachu extends Pokemon{
 
     public Pikachu() {
         super("皮卡丘");
-        this.attack=1500;
-        this.defense=1000;
-        this.HP=20000;
+        this.attack=150;
+        this.defense=100;
+        this.HP=2000;
         this.currentHP=HP;
     }
 }

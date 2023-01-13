@@ -10,7 +10,7 @@ public class HP extends Item{
     }
     public int use(){
         count--;
-        return levelNum*500;
+        return levelNum*50;
     }
     public boolean enduranceZero(){
         return count == 0;
