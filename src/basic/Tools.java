@@ -1,12 +1,15 @@
 package basic;
 
 
+import basic.Battle.HP;
+import basic.mysql.Use_Mysql;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Random;
 import java.util.Scanner;
 
-import static basic.Use_Mysql.equip_sql;
+import static basic.mysql.Use_Mysql.equip_sql;
 
 public class Tools {
     private static  final Random r=new Random();

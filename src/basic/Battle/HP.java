@@ -1,6 +1,8 @@
-package basic;
+package basic.Battle;
 
-public class HP extends Item{
+import basic.Item;
+
+public class HP extends Item {
 
     private int count;
 

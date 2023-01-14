@@ -1,10 +1,15 @@
 package basic;
 
+import basic.Battle.*;
+import basic.Map.Level;
+import basic.Map.LevelMap;
+import basic.Map.Portal;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Arrays;
 
-import static basic.Use_Mysql.equip_sql;
+import static basic.mysql.Use_Mysql.equip_sql;
 
 public class Adventurer extends Item{
     private Equipment[] equipment={};

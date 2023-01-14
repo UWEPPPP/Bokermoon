@@ -1,5 +1,8 @@
-package basic;
-public class Portal extends Item{
+package basic.Map;
+
+import basic.Item;
+
+public class Portal extends Item {
     private final boolean next;
     @Override
     public String getInformation() {

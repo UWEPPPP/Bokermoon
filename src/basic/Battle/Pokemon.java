@@ -1,4 +1,6 @@
-package basic;
+package basic.Battle;
+
+import basic.Item;
 
 public class Pokemon extends Item {
 

@@ -1,4 +1,9 @@
-package basic;
+package basic.mysql;
+
+import basic.Battle.Equipment;
+import basic.Battle.Monster;
+import basic.Battle.Pokemon;
+import basic.Item;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -7,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Use_Mysql {
-    public static Item equip_sql(int id,int levelnum) throws SQLException, IOException {
+    public static Item equip_sql(int id, int levelnum) throws SQLException, IOException {
         Connection connection= Connect_Mysql.getConnection();
         PreparedStatement prst=connection.prepareStatement("select * from `Equipment&Monster&Pokemon` where id=?");
         prst.setObject(1,id);

@@ -1,4 +1,7 @@
-package basic;
+package basic.Battle;
+
+import basic.Item;
+import basic.Tools;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -15,7 +18,7 @@ public class Monster extends Item {
 
     public Monster(String name, int levelNum,int...message) {
         super(name, levelNum);
-        this.attack=Tools.getRandomNum(message[0],message[1],levelNum);
+        this.attack= Tools.getRandomNum(message[0],message[1],levelNum);
         this.defense=Tools.getRandomNum(message[2],message[3],levelNum);
         this.HP=Tools.getRandomNum(message[4],message[5],levelNum);
         this.currentHP=HP;

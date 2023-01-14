@@ -1,4 +1,7 @@
-package basic;
+package basic.Battle;
+
+import basic.Item;
+import basic.Tools;
 
 import java.util.Objects;
 
@@ -21,7 +24,7 @@ public  class Equipment extends Item {
     protected final int HP;//生命值
     public Equipment(String name, int levelNum,int...message) {
         super(name, levelNum);
-        this.attack=Tools.getRandomNum(message[0],message[1],levelNum);
+        this.attack= Tools.getRandomNum(message[0],message[1],levelNum);
         this.defense=Tools.getRandomNum(message[2],message[3],levelNum);
         this.HP=Tools.getRandomNum(message[4],message[5],levelNum);
     }

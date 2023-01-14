@@ -1,4 +1,7 @@
-package basic;
+package basic.Battle;
+
+import basic.Item;
+import basic.Tools;
 
 import java.io.IOException;
 import java.sql.SQLException;

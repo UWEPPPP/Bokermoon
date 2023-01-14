@@ -1,4 +1,8 @@
-package basic;
+package basic.Map;
+
+import basic.*;
+import basic.Battle.Treasure_box;
+import basic.mysql.Use_Mysql;
 
 import java.io.IOException;
 import java.sql.SQLException;

@@ -1,4 +1,4 @@
-package basic;
+package basic.Map;
 
 import java.io.IOException;
 import java.sql.SQLException;
