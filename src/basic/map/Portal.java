@@ -1,12 +1,17 @@
-package basic.Map;
+package basic.map;
 
-import basic.Item;
+import basic.AbstractItem;
 
-public class Portal extends Item {
+/**
+ * @author 刘家辉
+ */
+public class Portal extends AbstractItem {
     private final boolean next;
     @Override
     public String getInformation() {
-        if(discovery) return next ?"➡":"⬅";
+        if(discovery) {
+            return next ?"➡":"⬅";
+        }
         return "■";
     }
 
@@ -15,7 +20,8 @@ public class Portal extends Item {
         super.setDiscovery(discovery);
     }
     public Portal(boolean next ){
-        super("传送门");//调用父类只有一个参数的构造方法
+        super("传送门");
+        //调用父类只有一个参数的构造方法
         this.next=next;
     }
     public boolean isNext() {

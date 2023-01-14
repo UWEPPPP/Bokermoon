@@ -5,7 +5,10 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.Properties;
 
-public  class Connect_Mysql {
+/**
+ * @author 刘家辉
+ */
+public  class ConnectMysql {
    public static Connection getConnection() throws SQLException, IOException {
        Properties properties=new Properties();
        FileReader fre=new FileReader("C:\\Users\\刘家辉\\IdeaProjects\\StudentProgramme\\properties");
@@ -16,8 +19,14 @@ public  class Connect_Mysql {
        return DriverManager.getConnection(url,username,password);
    }
    public static void close(Connection connection, ResultSet set, PreparedStatement preparedStatement) throws SQLException {
-          if (connection!=null)connection.close();
-          if(set!=null)set.close();
-          if(preparedStatement!=null)preparedStatement.close();
+          if (connection!=null) {
+              connection.close();
+          }
+          if(set!=null) {
+              set.close();
+          }
+          if(preparedStatement!=null) {
+              preparedStatement.close();
+          }
    }
 }

@@ -1,12 +1,16 @@
-package basic.Battle;
+package basic.battle;
 
-import basic.Item;
+import basic.AbstractItem;
 
-public class HP extends Item {
+
+/**
+ * @author 刘家辉
+ */
+public class Health extends AbstractItem {
 
     private int count;
 
-    public HP(int count,int levelNum) {
+    public Health(int count,int levelNum) {
         super("天山雪莲",levelNum);
         this.count = count;
     }

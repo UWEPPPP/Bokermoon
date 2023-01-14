@@ -1,8 +1,11 @@
-package basic.Map;
+package basic.map;
 
-import java.io.IOException;
-import java.sql.SQLException;
-
+/**
+ * 水平
+ *
+ * @author 刘家辉
+ * &#064;date  2023/01/14
+ */
 public class Level {
     private final int num;
     private final Level prevLevel;
@@ -10,7 +13,7 @@ public class Level {
     private final LevelMap map;
 
 
-    public Level(Level prevLevel, int num,Level nextLevel) throws SQLException, IOException {
+    public Level(Level prevLevel, int num,Level nextLevel) throws Exception {
         this.num = num;
         this.prevLevel = prevLevel;
         this.nextLevel = nextLevel;
