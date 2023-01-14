@@ -1,23 +1,24 @@
 package basic;
 
-import basic.Battle.*;
-import basic.Map.Level;
-import basic.Map.LevelMap;
-import basic.Map.Portal;
+import basic.battle.*;
+import basic.map.Level;
+import basic.map.LevelMap;
+import basic.map.Portal;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Objects;
 
-import static basic.mysql.Use_Mysql.equip_sql;
+import static basic.mysql.UseMysql.equipSql;
 
-public class Adventurer extends Item{
+/**
+ * @author 刘家辉
+ */
+public class Adventurer extends AbstractItem{
     private Equipment[] equipment={};
-    private  HP[] hps={new HP(1,10),new HP(1,10),new HP(1,10)};
-    private Pokemon[] pokemons={(Pokemon) equip_sql(13,1)};
+    private  Health[] hps={new Health(1,10),new Health(1,10),new Health(1,10)};
+    private Pokemon[] pokemons={(Pokemon) equipSql(13,1)};
     private Level currentLevel;
-    public Adventurer() throws SQLException, IOException {
+    public Adventurer() throws Exception {
         super("冒险家");
     }
     public void start() throws Exception {
@@ -29,7 +30,7 @@ public class Adventurer extends Item{
             currentLevel.getMap().show();
             System.out.println("请选择移动方向：W(上)、A(左)、S(下)、D(右)、E(退 出)");
             char direct = Tools.getInputChar();
-            Item item = discovery(direct);
+            AbstractItem item = discovery(direct);
             if (direct == 'E') {
                 //退出
                 System.out.println("确定要退出吗？ Y/N");
@@ -43,8 +44,8 @@ public class Adventurer extends Item{
                     item.setDiscovery(true);
                     currentLevel.getMap().show();
                 }
-                if (item instanceof Treasure_box) {
-                    processTreasure((Treasure_box) item, direct);
+                if (item instanceof TreasureBox) {
+                    processTreasure((TreasureBox) item, direct);
                 } else if (item instanceof Monster) {
                 processMonster((Monster) item, direct);
             } else if (item instanceof Portal) {
@@ -67,9 +68,9 @@ public class Adventurer extends Item{
                          System.out.println("非法操作");
                      } else { currentLevel = prevLevel; } } } } else {
                 //其他情况
-                move(item,direct); } } } }
+                move(direct); } } } }
 
-        private void processMonster (Monster monster,char direct) throws InterruptedException, SQLException, IOException {
+        private void processMonster (Monster monster,char direct) throws Exception {
             System.out.println("发现" + monster.getName() + "，是否清除？ Y/N");
             char clear = Tools.getInputChar();
             if (Character.toUpperCase(clear) == 'Y') {
@@ -79,16 +80,21 @@ public class Adventurer extends Item{
                 System.out.println("请选择出战宠物小精灵：");
                 int number = Tools.getInputNumber();
                 Pokemon pokemon = pokemons[number - 1];
-                while (monster.getCurrentHP() > 0 && pokemon.getCurrentHP() > 0) {
+                while (monster.getCurrentHealth() > 0 && pokemon.getCurrentHealth() > 0) {
                     //获取宠物小精灵的剩余生命值的比例
-                    double rate = pokemon.HPbili();
-                    if (rate < 0.5) {//生命值低于50%，询问是否使用药品
+                    double rate = pokemon.biliHealth();
+                    if (rate < 0.5) {
+                        //生命值低于50%，询问是否使用药品
                         System.out.println(pokemon.getName() + "生命值低于50%， 是否使用药品？ Y/N");
-                        int nu=0;for(HP hpp:hps) if(hpp!=null) nu++;
+                        int nu=0;for(Health hpp:hps) {
+                            if(hpp!=null) {
+                                nu++;
+                            }
+                        }
                         System.out.println("还有"+nu+"次使用次数");
                         char eatHp = Tools.getInputChar();
                         if (Character.toUpperCase(eatHp) == 'Y') {
-                            HP hp = getCurrentLevelHP();
+                            Health hp = getCurrentLevelHealth();
                             if (hp == null) {
                                 System.out.println("背包中没有可用药品，请探索其他地 图");
                             } else { //如果药品可以被销毁，说明没有可用数量
@@ -105,7 +111,7 @@ public class Adventurer extends Item{
                                 } else {
                                     int health = hp.use();
                                     System.out.println("恢复了"+health+"血量");
-                                    pokemon.setCurrentHP(pokemon.getCurrentHP() + health);
+                                    pokemon.setCurrentHealth(pokemon.getCurrentHealth() + health);
                                 }
                             }
                         }
@@ -118,16 +124,16 @@ public class Adventurer extends Item{
                     Thread.sleep(500);
                 }
                 //怪物已被击败
-                if (monster.getCurrentHP() == 0) {
+                if (monster.getCurrentHealth() == 0) {
                     System.out.println("怪物已被击败");
                     //怪物掉落物品
-                    Item dropItem = monster.drop();
+                    AbstractItem dropItem = monster.drop();
                     //展示获取的物品信息
                     System.out.println("怪物已被击败，掉落" + dropItem.getItemInformation());
                     processItem(dropItem);
                     Thread.sleep(1000);
                     //怪物被击败后
-                    move(monster,direct);
+                    move(direct);
                 } else {//宠物小精灵被击败
                     monster.resume();
                     //怪物回血
@@ -135,21 +141,23 @@ public class Adventurer extends Item{
                 }
             }
         }
-        private HP getCurrentLevelHP (){
+    private Health getCurrentLevelHealth(){
             for (int i=0;i<hps.length;i++){
                 if(hps[i]!=null){
-                    HP hp=hps[i];
+                    Health hp=hps[i];
                     hps[i]=null;
                     return hp;
                 }
             }
             return null;
         }
-        private void processItem (Item item) throws InterruptedException {
-            if (item instanceof HP) {
+        private void processItem (AbstractItem item) throws InterruptedException {
+            if (item instanceof Health) {
                 //药品
                 for (int i=0;i<hps.length;i++){
-                    if(hps[i]==null) hps[i] = new HP(1, 10);
+                    if(hps[i]==null) {
+                        hps[i] = new Health(1, 10);
+                    }
                 }
             } else if (item instanceof Equipment) {
                 //装备
@@ -161,7 +169,9 @@ public class Adventurer extends Item{
                         //小精灵更换装备
                         old = pokemon.replaceEquipment((Equipment) item);
                         //如果换下来的装备为空，说明后面的小精灵不需要再看
-                        if (old == null) break;
+                        if (old == null) {
+                            break;
+                        }
                     }
                     //如果换下来的旧装备不为空，直接放入背包中
                     if (old != null) {
@@ -197,24 +207,25 @@ public class Adventurer extends Item{
                 }
             }
         }
-        private void processTreasure (Treasure_box treasure,char direct) throws Exception {
+        private void processTreasure (TreasureBox treasure,char direct) throws Exception {
             System.out.println("发现宝箱，是否打开？ Y/N");
             char open = Tools.getInputChar();
             if (Character.toUpperCase(open) == 'Y') {
                 //开启宝箱获得一个物品
-                Item item = treasure.open();
+                AbstractItem item = treasure.open();
                 //展示获取的物品信息
                 System.out.println("获得" + item.getItemInformation());
                 Thread.sleep(500);
-                processItem(item); //宝箱处理后，冒险家移动至宝箱的位置
-                move(item,direct);
+                processItem(item);
+                //宝箱处理后，冒险家移动至宝箱的位置
+                move(direct);
             }
         }
-        private Item discovery ( char direct) throws InterruptedException {
-            return (Item) currentLevel.getMap().getPositionItem(Character.toUpperCase(direct));
+        private AbstractItem discovery (char direct) throws InterruptedException {
+            return (AbstractItem) currentLevel.getMap().getPositionItem(Character.toUpperCase(direct));
         }
-        private void move (Item items,char direct){
-            currentLevel.getMap().move(items,Character.toUpperCase(direct));
+        private void move ( char direct){
+            currentLevel.getMap().move(Character.toUpperCase(direct));
         }
     @Override
     public String getInformation() {

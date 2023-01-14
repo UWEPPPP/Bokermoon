@@ -1,23 +1,23 @@
 package basic;
 
 
-import basic.Battle.HP;
-import basic.mysql.Use_Mysql;
+import basic.battle.Health;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Random;
 import java.util.Scanner;
 
-import static basic.mysql.Use_Mysql.equip_sql;
+import static basic.mysql.UseMysql.equipSql;
 
+/**
+ * @author 刘家辉
+ */
 public class Tools {
-    private static  final Random r=new Random();
+    private static  final Random RANDOM =new Random();
 
     public static int getRandomNum(int min,int max,int levelNum){
       int diff=(max-min)*levelNum;
       if(diff>0){
-      return r.nextInt(diff)+min*levelNum;
+      return RANDOM.nextInt(diff)+min*levelNum;
     }else {
           return 1;
       }
@@ -31,50 +31,57 @@ public class Tools {
 
     public static char getInputChar() {
 
-        return in.next().charAt(0);
+        return IN.next().charAt(0);
     }
-    static final Scanner in =new Scanner(System.in);
+    static final Scanner IN =new Scanner(System.in);
     public static int getInputNumber() {
-        return in.nextInt();
+        return IN.nextInt();
     }
-    public static Item getRandomItem(int levelNum) throws SQLException, IOException {
+    public static AbstractItem getRandomItem(int levelNum) throws Exception {
         Random r=new Random();
         int num=r.nextInt(10);
         if(num==0) {
-            //获得宠物 比例 初级：中级：高级：究极：坤坤or刀酱=50:30:15：4：1
+            //获得宠物 比例 初级：中级：高级：究极：坤坤or刀酱=25:25:25：20：5
+            int odds1=5,odds2=25,odds3=50,odds4=75;
             int rate=Tools.getRandomNum(100);
-            if(rate<=5){
-                if(r.nextInt(10)>5){
-                    return Use_Mysql.equip_sql(17,1);
-                }else return Use_Mysql.equip_sql(18,1);
-            } else if (rate<=25) {
-                return Use_Mysql.equip_sql(16,1);
-            } else if (rate<=50) {
-                return Use_Mysql.equip_sql(15,1);
-            } else if (rate<=75) {
-                return Use_Mysql.equip_sql(14,1);
-            }else return Use_Mysql.equip_sql(13,1);
+            if(rate<=odds1){
+                if(r.nextInt(10)>odds1){
+                    return equipSql(17,1);
+                }else {
+                    return equipSql(18,1);
+                }
+            } else if (rate<=odds2) {
+                return equipSql(16,1);
+            } else if (rate<=odds3) {
+                return equipSql(15,1);
+            } else if (rate<=odds4) {
+                return equipSql(14,1);
+            }else {
+                return equipSql(13,1);
+            }
         }else if(num<=3){
             //装备 比例 武器：铠甲：护腿：鞋子：头盔：项链：手镯：戒指=20：15：15：15：15：10：5：5
             int rate=Tools.getRandomNum(100);
             if(rate<5){
-                return equip_sql(4,levelNum);
+                return equipSql(4,levelNum);
             } else if (rate<10) {
-                return equip_sql(7,levelNum);
+                return equipSql(7,levelNum);
             } else if (rate<20) {
-                return equip_sql(6,levelNum);
+                return equipSql(6,levelNum);
             } else if (rate<35) {
-                return equip_sql(1,levelNum);
+                return equipSql(1,levelNum);
             } else if (rate<50) {
-                return equip_sql(3,levelNum);
+                return equipSql(3,levelNum);
             } else if (rate<65) {
-                return equip_sql(5,levelNum);
+                return equipSql(5,levelNum);
             } else if (rate<80) {
-                return equip_sql(2,levelNum);
-            }else return equip_sql(8,levelNum);
+                return equipSql(2,levelNum);
+            }else {
+                return equipSql(8,levelNum);
+            }
         }else {
             //药品
-            return new HP(levelNum,10);
+            return new Health(levelNum,10);
         }
     }
 }
