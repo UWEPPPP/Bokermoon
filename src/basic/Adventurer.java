@@ -8,6 +8,7 @@ import basic.Map.Portal;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.Objects;
 
 import static basic.mysql.Use_Mysql.equip_sql;
 
@@ -174,7 +175,7 @@ public class Adventurer extends Item{
                 //宠物小精灵
                 int index = -1;
                 for (int i = 0; i < pokemons.length; i++) {
-                    if (item.getClass() == pokemons[i].getClass()) {
+                    if (Objects.equals(item.getName(), pokemons[i].getName())) {
                         index = i;
                         break;
                     }

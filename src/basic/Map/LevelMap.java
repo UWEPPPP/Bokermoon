@@ -170,8 +170,11 @@ public class LevelMap {
                 currentCol += 1;
             }
         }
-        item[currentRow][currentCol] = adventurer; item[oldRow][oldCol] = items; {
-        }
+        item[currentRow][currentCol] = adventurer; item[oldRow][oldCol] = new Item("空地",1) {
+            @Override
+            public String getItemInformation() {
+                return "一片空地";
+            }    };
     }
     }
 
