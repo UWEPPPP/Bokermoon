@@ -1,18 +1,17 @@
 package basic;
 
-import basic.Monster.*;
-
-import java.util.Random;
+import java.io.IOException;
+import java.sql.SQLException;
 
 public class LevelMap {
     private int currentRow, currentCol;
     private final int num;
     private final Item_rule[][] item=new Item_rule[9][9];
-    private void generate(){
+    private void generate() throws SQLException, IOException {
         if(num == 1){
             //第一关卡 //第二个位置为初级怪物象牙猪
-            item[0][1] = new Porcupine(num);
-            item[0][0] = new Porcupine(num);
+            item[0][1] = Use_Mysql.equip_sql(9, num);
+            item[0][0] = Use_Mysql.equip_sql(9, num);
         } else {//其他关卡 //第一个位置为返回上一层的传送门
             item[0][0] = new Portal(false);
             item[0][1] = new Portal(false); }
@@ -49,21 +48,21 @@ public class LevelMap {
                   int num1 = Tools.getRandomNum(39);
                   if(num1 < 3){//究级怪物
                       // 究级怪物已经全部生成完毕，直接跳过
-                      if(generatedMonster4 == 3) continue; item[row][col] = new Phoenix(num); generatedMonster4 += 1;
+                      if(generatedMonster4 == 3) continue; item[row][col] = Use_Mysql.equip_sql(12, num); generatedMonster4 += 1;
                   } else if(num1 < 9){//高级怪物
                       // 高级怪物已经全部生成完毕，直接跳过
-                      if(generatedMonster3 == 6) continue; item[row][col] = new Ghoul(num); generatedMonster3 += 1;
+                      if(generatedMonster3 == 6) continue; item[row][col] = Use_Mysql.equip_sql(11, num); generatedMonster3 += 1;
                   } else if(num1 < 21){//中级怪物
                       // 中级怪物已经全部生成完毕，直接跳过
-                      if(generatedMonster2 == 12) continue; item[row][col] = new Minotaur(num); generatedMonster2 += 1;
+                      if(generatedMonster2 == 12) continue; item[row][col] = Use_Mysql.equip_sql(10, num); generatedMonster2 += 1;
                   } else {//初级怪物
                       // 初级怪物已经全部生成完毕，直接跳过
-                      if(generatedMonster1 == 18) continue; item[row][col] = new Porcupine(num); generatedMonster1 += 1;
+                      if(generatedMonster1 == 18) continue; item[row][col] = Use_Mysql.equip_sql(9, num); generatedMonster1 += 1;
                   } }
 
         } }
 
-    public LevelMap(int num) {
+    public LevelMap(int num) throws SQLException, IOException {
         this.num = num;
         generate();
     }

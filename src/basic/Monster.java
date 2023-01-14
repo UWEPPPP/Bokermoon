@@ -1,20 +1,24 @@
-package basic.Monster;
-import basic.Item;
-import basic.Pokemon.*;
-import basic.Tools;
+package basic;
+
+import java.io.IOException;
+import java.sql.SQLException;
 
 public class Monster extends Item {
-    protected int attack;
-    protected int defense;
-    protected int HP;
+    protected final int attack;
+    protected final int defense;
+    protected final int HP;
     protected int currentHP;
 
     public int getAttack() {
         return attack;
     }
 
-    public Monster(String name, int levelNum) {
-        super(name,levelNum);
+    public Monster(String name, int levelNum,int...message) {
+        super(name, levelNum);
+        this.attack=Tools.getRandomNum(message[0],message[1],levelNum);
+        this.defense=Tools.getRandomNum(message[2],message[3],levelNum);
+        this.HP=Tools.getRandomNum(message[4],message[5],levelNum);
+        this.currentHP=HP;
     }
     @Override
     public String getItemInformation() {
@@ -48,11 +52,15 @@ public class Monster extends Item {
         System.err.println(name + "对" + pokemon.getName() + "发动攻击，造成 了" + minusHealth + "伤害"); }
     @Override
     public String getInformation() {
-        return discovery?name:"■";
+        return discovery?switch (name) {
+            case "豪猪" -> "猪";
+            case "牛头怪" -> "牛";
+            case "食尸鬼" -> "尸";
+            case "凤凰" -> "风";
+            default -> "空";
+        }:"■";
     }
-    public Item drop(){
+    public Item drop() throws SQLException, IOException {
         return Tools.getRandomItem(levelNum);
     }
-
-
 }

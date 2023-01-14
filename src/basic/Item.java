@@ -1,7 +1,4 @@
 package basic;
-import basic.Equipment.*;
-import basic.Pokemon.*;
-import java.util.Random;
 
 public abstract class Item implements Item_rule{
     protected final String name;

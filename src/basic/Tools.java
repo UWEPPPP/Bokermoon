@@ -1,9 +1,6 @@
 package basic;
 
 
-import basic.Equipment.*;
-import basic.Pokemon.*;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Random;
@@ -37,23 +34,23 @@ public class Tools {
     public static int getInputNumber() {
         return in.nextInt();
     }
-    public static Item getRandomItem(int levelNum) throws SQLException, ClassNotFoundException {
+    public static Item getRandomItem(int levelNum) throws SQLException, IOException {
         Random r=new Random();
         int num=r.nextInt(10);
         if(num==0) {
             //获得宠物 比例 初级：中级：高级：究极：坤坤or刀酱=50:30:15：4：1
             int rate=Tools.getRandomNum(100);
-            if(rate==0){
+            if(rate<=5){
                 if(r.nextInt(10)>5){
-                    return new Cai_Xukun_The_Answer();
-                }else return new KnifeJANG();
-            } else if (rate<=4) {
-                return new Pikachu();
-            } else if (rate<=20) {
-                return new Little_fire_dragon();
+                    return Use_Mysql.equip_sql(17,1);
+                }else return Use_Mysql.equip_sql(18,1);
+            } else if (rate<=25) {
+                return Use_Mysql.equip_sql(16,1);
             } else if (rate<=50) {
-                return new Ray_fairy();
-            }else return new The_seed_of_the_wonderful_frog();
+                return Use_Mysql.equip_sql(15,1);
+            } else if (rate<=75) {
+                return Use_Mysql.equip_sql(14,1);
+            }else return Use_Mysql.equip_sql(13,1);
         }else if(num<=3){
             //装备 比例 武器：铠甲：护腿：鞋子：头盔：项链：手镯：戒指=20：15：15：15：15：10：5：5
             int rate=Tools.getRandomNum(100);

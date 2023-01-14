@@ -3,8 +3,8 @@ package basic;
 import java.util.Objects;
 
 public  class Equipment extends Item {
-    protected int attack;//攻击力
-    protected int defense;//防御力
+    protected final int attack;//攻击力
+    protected final int defense;//防御力
 
     public int getAttack() {
         return attack;
@@ -18,7 +18,7 @@ public  class Equipment extends Item {
         return HP;
     }
 
-    protected int HP;//生命值
+    protected final int HP;//生命值
     public Equipment(String name, int levelNum,int...message) {
         super(name, levelNum);
         this.attack=Tools.getRandomNum(message[0],message[1],levelNum);

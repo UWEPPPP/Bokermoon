@@ -1,5 +1,8 @@
 package basic;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
 public class Level {
     private final int num;
     private final Level prevLevel;
@@ -7,7 +10,7 @@ public class Level {
     private final LevelMap map;
 
 
-    public Level(Level prevLevel, int num,Level nextLevel) {
+    public Level(Level prevLevel, int num,Level nextLevel) throws SQLException, IOException {
         this.num = num;
         this.prevLevel = prevLevel;
         this.nextLevel = nextLevel;

@@ -1,9 +1,4 @@
-package basic.Pokemon;
-import basic.Equipment;
-import basic.Item;
-import basic.Monster.Monster;
-
-import java.util.Objects;
+package basic;
 
 public class Pokemon extends Item {
 
@@ -37,8 +32,12 @@ public class Pokemon extends Item {
         } return total;
     }
 
-    public Pokemon(String name) {
+    public Pokemon(String name,int...message) {
         super(name);
+        this.attack=message[0];
+        this.defense=message[1];
+        this.HP=message[2];
+        this.currentHP=HP;
     }
 
     @Override
@@ -48,7 +47,7 @@ public class Pokemon extends Item {
 
     @Override
     public String getItemInformation() {
-        return name+": 攻击力="+getAttack()+"防御力="+getDefense()+"HP="+getCurrentHP();
+        return "⭐级为"+star+" "+name+": 攻击力="+getAttack()+"防御力="+getDefense()+"HP="+getCurrentHP();
     }
 
     public void merge(Pokemon other){
@@ -57,7 +56,7 @@ public class Pokemon extends Item {
         this.HP+=(other.HP>>1);
         star++;
         System.out.println("融合成功,精灵的最新属性如下");
-        System.out.println(getInformation());
+        System.out.println(getItemInformation());
     }
     public Equipment replaceEquipment(Equipment newEquipment){
         int index;

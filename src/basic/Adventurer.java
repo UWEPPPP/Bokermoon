@@ -1,21 +1,20 @@
 package basic;
 
-import basic.Monster.Monster;
-import basic.Pokemon.Pokemon;
-import basic.Pokemon.The_seed_of_the_wonderful_frog;
-
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Arrays;
 
+import static basic.Use_Mysql.equip_sql;
+
 public class Adventurer extends Item{
     private Equipment[] equipment={};
-    private  HP[] hps=new HP[3];
-    private Pokemon[] pokemons={new The_seed_of_the_wonderful_frog()};
+    private  HP[] hps={new HP(1,10),new HP(1,10),new HP(1,10)};
+    private Pokemon[] pokemons={(Pokemon) equip_sql(13,1)};
     private Level currentLevel;
-    public Adventurer() {
+    public Adventurer() throws SQLException, IOException {
         super("冒险家");
     }
-    public void start() throws InterruptedException, SQLException, ClassNotFoundException {
+    public void start() throws Exception {
         currentLevel = new Level(null, 1, null);
         LevelMap map = currentLevel.getMap();
         //冒险家进入地图
@@ -64,7 +63,7 @@ public class Adventurer extends Item{
                 //其他情况
                 move(item,direct); } } } }
 
-        private void processMonster (Monster monster,char direct) throws InterruptedException {
+        private void processMonster (Monster monster,char direct) throws InterruptedException, SQLException, IOException {
             System.out.println("发现" + monster.getName() + "，是否清除？ Y/N");
             char clear = Tools.getInputChar();
             if (Character.toUpperCase(clear) == 'Y') {
@@ -79,6 +78,8 @@ public class Adventurer extends Item{
                     double rate = pokemon.HPbili();
                     if (rate < 0.5) {//生命值低于50%，询问是否使用药品
                         System.out.println(pokemon.getName() + "生命值低于50%， 是否使用药品？ Y/N");
+                        int nu=0;for(HP hpp:hps) if(hpp!=null) nu++;
+                        System.out.println("还有"+nu+"次使用次数");
                         char eatHp = Tools.getInputChar();
                         if (Character.toUpperCase(eatHp) == 'Y') {
                             HP hp = getCurrentLevelHP();
@@ -138,7 +139,7 @@ public class Adventurer extends Item{
             }
             return null;
         }
-        private void processItem (Item item) {
+        private void processItem (Item item) throws InterruptedException {
             if (item instanceof HP) {
                 //药品
                 for (int i=0;i<hps.length;i++){
@@ -161,6 +162,8 @@ public class Adventurer extends Item{
                         equipment = Arrays.copyOf(equipment, equipment.length + 1);
                         equipment[equipment.length - 1] = old;
                     }
+                    System.out.println("更换成功");
+                    Thread.sleep(300);
                 }
             } else {
                 //宠物小精灵
@@ -188,7 +191,7 @@ public class Adventurer extends Item{
                 }
             }
         }
-        private void processTreasure (Treasure_box treasure,char direct) throws InterruptedException, SQLException, ClassNotFoundException {
+        private void processTreasure (Treasure_box treasure,char direct) throws Exception {
             System.out.println("发现宝箱，是否打开？ Y/N");
             char open = Tools.getInputChar();
             if (Character.toUpperCase(open) == 'Y') {
@@ -201,7 +204,7 @@ public class Adventurer extends Item{
                 move(item,direct);
             }
         }
-        private Item discovery ( char direct){
+        private Item discovery ( char direct) throws InterruptedException {
             return (Item) currentLevel.getMap().getPositionItem(Character.toUpperCase(direct));
         }
         private void move (Item items,char direct){
